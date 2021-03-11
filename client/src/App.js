@@ -7,24 +7,33 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing(2) * 3
+    width: '100%',
+    marginTop: theme.spacing(3) * 3,
+    overflowX: 'auto',
+    align: 'center'
   },
   table: {
     minWidth: 1080
+  },
+  progress: {
+    margin: theme.spacing(2)
   }
 });
 
 class App extends Component {
 
   state = {
-    customers: ""
+    customers: "",
+    completed: 0
   }
 
   componentDidMount() {
+    this.timer = setInterval(this.props, 20);
     this.callApi()
     .then(res => this.setState({customers: res}))
     .catch(err => console.log(err));
@@ -36,28 +45,42 @@ class App extends Component {
     return body;
   }
 
+  progress = () => {
+    const {completed} = this.state;
+    this.setState({completed: completed >= 100 ? 0 : completed + 1});
+  }
+
   render() {
     const {classes} = this.props;
       return (
-        <Paper className={classes.root}>
-          <Table className={classes.table}>
-            <TableHead>
-              <TableRow>
-                <TableCell>번호</TableCell>
-                <TableCell>이미지</TableCell>
-                <TableCell>이름</TableCell>
-                <TableCell>생년월일</TableCell>
-                <TableCell>성별</TableCell>
-                <TableCell>별명</TableCell>
-                <TableCell>직업</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-                {this.state.customers ? this.state.customers.map(c => {return(<Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} title={c.title} job={c.job} />);
-              }) : ""}
-            </TableBody>
-          </Table>
-        </Paper>
+        <div>
+          <Paper className={classes.root}>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell align='center'>번호</TableCell>
+                  <TableCell align='center'>이미지</TableCell>
+                  <TableCell align='center'>이름</TableCell>
+                  <TableCell align='center'>생년월일</TableCell>
+                  <TableCell align='center'>성별</TableCell>
+                  <TableCell align='center'>별명</TableCell>
+                  <TableCell align='center'>직업</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                  {this.state.customers ? this.state.customers.map(c => {
+                    return(<Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} title={c.title} job={c.job} />);
+                }) : 
+                <TableRow>
+                  <TableCell colSpan="7" align='center'>
+                    <CircularProgress disableShrink />
+                  </TableCell>
+                </TableRow>
+                }
+              </TableBody>
+            </Table>
+          </Paper>
+        </div>
       );
     }
   }
