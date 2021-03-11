@@ -58,13 +58,13 @@ class App extends Component {
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
-                  <TableCell align='center'>번호</TableCell>
-                  <TableCell align='center'>이미지</TableCell>
-                  <TableCell align='center'>이름</TableCell>
-                  <TableCell align='center'>생년월일</TableCell>
-                  <TableCell align='center'>성별</TableCell>
-                  <TableCell align='center'>별명</TableCell>
-                  <TableCell align='center'>직업</TableCell>
+                  <TableCell>번호</TableCell>
+                  <TableCell>이미지</TableCell>
+                  <TableCell>이름</TableCell>
+                  <TableCell>생년월일</TableCell>
+                  <TableCell>성별</TableCell>
+                  <TableCell>별명</TableCell>
+                  <TableCell>직업</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
