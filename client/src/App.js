@@ -36,16 +36,6 @@ class App extends Component {
     }
   }
 
-  stateRefresh = () => {
-    this.setState({
-      customers: '',
-      completed: 0
-    });
-    this.callApi()
-    .then(res => this.setState({customers: res}))
-    .catch(err => console.log(err));
-  }
-
   componentDidMount() {
     this.timer = setInterval(this.props, 20);
     this.callApi()
@@ -75,15 +65,16 @@ class App extends Component {
                   <TableCell>번호</TableCell>
                   <TableCell>이미지</TableCell>
                   <TableCell>이름</TableCell>
-                  <TableCell>생년월일</TableCell>
+                  <TableCell>나이</TableCell>
                   <TableCell>성별</TableCell>
                   <TableCell>별명</TableCell>
                   <TableCell>직업</TableCell>
+                  <TableCell>설정</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                   {this.state.customers ? this.state.customers.map(c => {
-                    return(<Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} title={c.title} job={c.job} />);
+                    return(<Customer key={c.id} id={c.id} image={c.image} name={c.name} age={c.age} gender={c.gender} title={c.title} job={c.job} />);
                 }) : 
                 <TableRow>
                   <TableCell colSpan="7" align='center'>
@@ -94,7 +85,7 @@ class App extends Component {
               </TableBody>
             </Table>
           </Paper>
-          <CustomerAdd stateRefresh={this.stateRefresh} />
+          <CustomerAdd/>
         </div>
       );
     }
