@@ -7,7 +7,7 @@ class CustomerAdd extends React.Component {
         this.state = {
             file: null,
             userName: '',
-            birthday: '',
+            age: '',
             gender: '',
             title: '',
             job: '',
@@ -15,7 +15,7 @@ class CustomerAdd extends React.Component {
         }
     }
 
-    // handleform
+    // handleformSubmit
     handleFormSubmit = (e) => {
         e.preventDefault()
         this.addCustomer()
@@ -23,15 +23,15 @@ class CustomerAdd extends React.Component {
                 console.log(response.data);
                 this.props.stateRefresh();
             })
-        this.setState({
-            file: null,
-            userName: '',
-            birthday: '',
-            gender: '',
-            title: '',
-            job: '',
-            fileName: ''
-        })
+            this.setState({
+                file: null,
+                userName: '',
+                age: '',
+                gender: '',
+                title: '',
+                job: '',
+                fileName: ''
+        });
     }
 
     // handleFileChange
@@ -55,7 +55,7 @@ class CustomerAdd extends React.Component {
         const formData = new FormData();
         formData.append('image', this.state.file);
         formData.append('name', this.state.userName);
-        formData.append('birthday', this.state.birthday);
+        formData.append('age', this.state.age);
         formData.append('gender', this.state.gender);
         formData.append('title', this.state.title);
         formData.append('job', this.state.job);
@@ -73,7 +73,7 @@ class CustomerAdd extends React.Component {
                 <h1>고객 추가</h1>
                 프로필 이미지: <input type="file" name="file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange} /><br/>
                 이름: <input type="text" name="userName" value={this.state.userName} onChange={this.handleValueChange} /><br/>
-                생년월일: <input type="text" name="birthday" value={this.state.birthday} onChange={this.handleValueChange} /><br/>
+                나이: <input type="text" name="age" value={this.state.age} onChange={this.handleValueChange} /><br/>
                 성별: <input type="text" name="gender" value={this.state.gender} onChange={this.handleValueChange} /><br/>
                 별명: <input type="text" name="title" value={this.state.title} onChange={this.handleValueChange} /><br/>
                 직업: <input type="text" name="job" value={this.state.job} onChange={this.handleValueChange} /><br/>

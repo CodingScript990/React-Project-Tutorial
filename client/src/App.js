@@ -36,6 +36,16 @@ class App extends Component {
     }
   }
 
+  stateRefresh = () => {
+    this.setState({
+      customers: '',
+      completed: 0
+    });
+    this.callApi()
+    .then(res => this.setState({customers: res}))
+    .catch(err => console.log(err));
+  }
+
   componentDidMount() {
     this.timer = setInterval(this.props, 20);
     this.callApi()
@@ -85,7 +95,7 @@ class App extends Component {
               </TableBody>
             </Table>
           </Paper>
-          <CustomerAdd/>
+          <CustomerAdd stateRefresh={this.stateRefresh} />
         </div>
       );
     }
